@@ -1,0 +1,33 @@
+{
+    "name": "monsterlane/lumen-form-request",
+    "description": "Laravel Form Request adaptation for Lumen framework.",
+    "keywords": [
+		"lumen",
+		"form-request",
+		"validation"
+	],
+    "homepage": "https://github.com/monsterlane/lumen-form-request",
+    "authors": [
+        {
+            "name": "Jonathan Down",
+            "homepage": "https://github.com/monsterlane"
+        }
+    ],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=7.3",
+		"illuminate/support": "^5.0"
+    },
+	"require-dev": {
+        "phpunit/phpunit": "^7.0",
+        "mockery/mockery": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monsterlane\\Http\\": "src/"
+        }
+    },
+	"minimum-stability": "dev",
+    "prefer-stable": true
+}
