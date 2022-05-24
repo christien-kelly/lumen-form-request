@@ -14,9 +14,8 @@
         }
     ],
     "license": "MIT",
-    "type": "project",
+    "type": "library",
     "require": {
-        "php": ">=7.3",
 		"illuminate/support": "^5.0"
     },
 	"require-dev": {
@@ -27,7 +26,5 @@
         "psr-4": {
             "Monsterlane\\Http\\": "src/"
         }
-    },
-	"minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
