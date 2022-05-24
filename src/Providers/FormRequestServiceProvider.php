@@ -1,6 +1,6 @@
 <?php
 
-namespace Monsterlane\Http;
+namespace Monsterlane\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
