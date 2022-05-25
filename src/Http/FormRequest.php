@@ -19,7 +19,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * The container instance.
 	 *
-	 * @var \Illuminate\Contracts\Container\Container
+	 * @var Container
 	 */
 	protected $container;
 
@@ -61,14 +61,14 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * The validator instance.
 	 *
-	 * @var \Illuminate\Contracts\Validation\Validator
+	 * @var Validator
 	 */
 	protected $validator;
 
 	/**
 	 * Get the validator instance for the request.
 	 *
-	 * @return \Illuminate\Contracts\Validation\Validator
+	 * @return Validator
 	 */
 	protected function getValidatorInstance()
 	{
@@ -96,8 +96,8 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * Create the default validator instance.
 	 *
-	 * @param  \Illuminate\Contracts\Validation\Factory  $factory
-	 * @return \Illuminate\Contracts\Validation\Validator
+	 * @param ValidationFactory $factory
+	 * @return Validator
 	 */
 	protected function createDefaultValidator(ValidationFactory $factory)
 	{
@@ -120,36 +120,15 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * Handle a failed validation attempt.
 	 *
-	 * @param  \Illuminate\Contracts\Validation\Validator  $validator
+	 * @param Validator $validator
 	 * @return void
 	 *
-	 * @throws \Illuminate\Validation\ValidationException
+	 * @throws ValidationException
 	 */
 	protected function failedValidation(Validator $validator)
 	{
 		throw (new ValidationException($validator))
-			->errorBag($this->errorBag)
-			->redirectTo($this->getRedirectUrl());
-	}
-
-	/**
-	 * Get the URL to redirect to on a validation error.
-	 *
-	 * @return string
-	 */
-	protected function getRedirectUrl()
-	{
-		$url = $this->redirector->getUrlGenerator();
-
-		if ($this->redirect) {
-			return $url->to($this->redirect);
-		} elseif ($this->redirectRoute) {
-			return $url->route($this->redirectRoute);
-		} elseif ($this->redirectAction) {
-			return $url->action($this->redirectAction);
-		}
-
-		return $url->previous();
+			->errorBag($this->errorBag);
 	}
 
 	/**
@@ -171,7 +150,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	 *
 	 * @return void
 	 *
-	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 * @throws AuthorizationException
 	 */
 	protected function failedAuthorization()
 	{
@@ -211,7 +190,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * Set the Validator instance.
 	 *
-	 * @param  \Illuminate\Contracts\Validation\Validator  $validator
+	 * @param Validator $validator
 	 * @return $this
 	 */
 	public function setValidator(Validator $validator)
@@ -237,7 +216,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * Set the container implementation.
 	 *
-	 * @param  \Illuminate\Contracts\Container\Container  $container
+	 * @param Container $container
 	 * @return $this
 	 */
 	public function setContainer(Container $container)
