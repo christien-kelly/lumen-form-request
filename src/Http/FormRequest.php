@@ -4,10 +4,12 @@ namespace Monsterlane\Http;
 
 use Laravel\Lumen\Http\Request;
 use Laravel\Lumen\Http\Redirector;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidatesWhenResolvedTrait;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
 use Illuminate\Contracts\Validation\Factory as ValidationFactory;
@@ -26,7 +28,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * The redirector instance.
 	 *
-	 * @var \Laravel\Lumen\Http\Redirector
+	 * @var Redirector
 	 */
 	protected $redirector;
 
@@ -127,8 +129,10 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	 */
 	protected function failedValidation(Validator $validator)
 	{
-		throw (new ValidationException($validator))
-			->errorBag($this->errorBag);
+		$errors = $validator->getMessageBag()->toArray();
+		$response = new JsonResponse($errors, 422);
+
+		throw new HttpResponseException($response);
 	}
 
 	/**
@@ -203,7 +207,7 @@ class FormRequest extends Request implements ValidatesWhenResolved
 	/**
 	 * Set the Redirector instance.
 	 *
-	 * @param  \Laravel\Lumen\Http\Redirector  $redirector
+	 * @param  Redirector  $redirector
 	 * @return $this
 	 */
 	public function setRedirector(Redirector $redirector)
