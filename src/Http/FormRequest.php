@@ -229,4 +229,27 @@ class FormRequest extends Request implements ValidatesWhenResolved
 
 		return $this;
 	}
+
+
+	/**
+	 * Validate the incoming request by checking the validations first then checking
+	 * the authorization.
+	 *
+	 * @return void
+	 * @throws AuthorizationException
+	 * @throws ValidationException
+	 */
+	public function validateResolved()
+	{
+
+		$validator = $this->getValidatorInstance();
+
+		if ($validator->fails()) {
+			$this->failedValidation($validator);
+		}
+
+		if (!$this->passesAuthorization()) {
+			$this->failedAuthorization();
+		}
+	}
 }
